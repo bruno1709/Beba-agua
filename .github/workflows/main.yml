@@ -17,6 +17,12 @@ jobs:
       - name: Descompactar projeto
         run: unzip BebaAgua_Android_Projeto.zip
 
+      - name: Habilitar AndroidX
+        working-directory: BebaAguaAndroid
+        run: |
+          echo "android.useAndroidX=true" > gradle.properties
+          echo "android.enableJetifier=true" >> gradle.properties
+
       - name: Configurar Java
         uses: actions/setup-java@v4
         with:
@@ -37,4 +43,3 @@ jobs:
         with:
           name: BebaAgua-APK
           path: BebaAguaAndroid/app/build/outputs/apk/debug/app-debug.apk
-          

@@ -17,11 +17,14 @@ jobs:
       - name: Descompactar projeto
         run: unzip BebaAgua_Android_Projeto.zip
 
-      - name: Habilitar AndroidX
+      - name: Habilitar AndroidX e corrigir Java
         working-directory: BebaAguaAndroid
         run: |
           echo "android.useAndroidX=true" > gradle.properties
           echo "android.enableJetifier=true" >> gradle.properties
+          sed -i 's/var prefs =/android.content.SharedPreferences prefs =/g' app/src/main/java/com/bebaagua/app/ReminderReceiver.java
+          sed -i 's/var prefs =/android.content.SharedPreferences prefs =/g' app/src/main/java/com/bebaagua/app/ReminderScheduler.java
+          sed -i 's/var p =/android.content.SharedPreferences p =/g' app/src/main/java/com/bebaagua/app/MainActivity.java
 
       - name: Configurar Java
         uses: actions/setup-java@v4
